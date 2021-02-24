@@ -6,10 +6,9 @@
     open Microsoft.Quantum.Math;
     open Microsoft.Quantum.Convert;
 
-    @EntryPoint()
-    operation SampleRandomNumber() : Int 
+
+    operation SampleRandomNumber(max : Int) : Int 
     {
-        let max = 50;
         Message($"Sampling a random number between 0 and {max}: ");
 
         return SampleRandomNumberInRange(max);
