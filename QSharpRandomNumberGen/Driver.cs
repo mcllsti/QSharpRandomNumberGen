@@ -13,14 +13,37 @@ namespace QSharpRandomNumberGen
     {
         static void Main(string[] args)
         {
-            int x;
+            do
+            {
+                GetRandomNumber();
+            } while (!Console.ReadLine().Equals("No"));
+        }
+
+        private static void GetRandomNumber()
+        {
+            int max = GetUserInput();
 
             using (var sim = new QuantumSimulator())
             {
-                x = Convert.ToInt32(SampleRandomNumber.Run(sim, 4).Result.ToString());
+                int randNum = Convert.ToInt32(SampleRandomNumber.Run(sim, max).Result.ToString());
+                Console.WriteLine($"The random number generated is {randNum}.");
+                Console.WriteLine($"Run again? Yes/No {Environment.NewLine}");
             }
-            // Print the result
-            Console.WriteLine($"The random number generated is {x}.");
+        }
+
+        private static int GetUserInput()
+        {
+            Console.WriteLine("Please enter a maximum threshold:");
+            string input = Console.ReadLine();
+            int max;
+
+            if (!int.TryParse(input, out max))
+            {
+                Console.WriteLine("Input is not valid, proceeding with default value 50.");
+                max = 50;
+            };
+
+            return max;
         }
     }
 }
